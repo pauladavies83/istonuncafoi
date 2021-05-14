@@ -1,9 +1,10 @@
 PImage fundo;
 PImage transp;
-int tam = 50;
-int rap = 300;
+int tam = 5;
+int rap = 100;
 float pn = 50;
 float pn2 = 10;
+float caos = 0.01;
 
 import processing.video.*;
 
@@ -42,8 +43,8 @@ void draw() {
     fill(c); // 25 é o alpha
     noStroke();
     ellipse(x, y, tam, tam);
-    pn += 0.001;
-    pn2 += 0.001;
+    pn += caos;
+    pn2 += caos;
 
     video.updatePixels();
   }
@@ -63,8 +64,8 @@ void keyPressed() {
       }
     } else if (keyCode == RIGHT) {
       rap += 10;
-      if (rap > 1000) {
-        rap = 1000;
+      if (rap > 2000) {
+        rap = 2000;
       }
     } else if (keyCode == LEFT) {
       rap -= 10;
