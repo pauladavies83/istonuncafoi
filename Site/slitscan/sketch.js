@@ -6,16 +6,16 @@ let fr = 60;
 let start = true;
 
 function setup() {
-  createCanvas(1920, 1080);
+  createCanvas(1280, 720);
   capture = createCapture(VIDEO);
-  capture.size(720, 480);
+  capture.size(1280, 720);
   capture.hide();
 }
 
 function draw() {
   frameRate(fr);
   if (start){
-  copy(capture, capture.width / 2, 0, 20 + larg, capture.height, x, 0, 20 + larg, height);
+  copy(capture, capture.width / 2, 0, 20 + larg, capture.height, x, 0, 20 + larg, capture.height);
   x = x + larg;
 
   if (x > width) {
@@ -36,7 +36,7 @@ function keyPressed() {
     larg -= 5;
     if (larg < 1) {
       larg = 1;
-    }  
+    }
 }
 }
 
@@ -50,14 +50,10 @@ function keyTyped(){
     fr -= 5;
     if (fr < 5) {
       fr = 5;
-    } 
+    }
   } else if (key === 's') {
   saveCanvas('SlitScan_hor', 'jpg');
   } else if (key === 'p') {
   start = !start;
-  }
 }
-
-function detectMob() {
-    return ( ( window.innerWidth <= 800 ) && ( window.innerHeight <= 600 ) );
-  }
+}
