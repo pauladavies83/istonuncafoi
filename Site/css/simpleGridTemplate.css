@@ -70,12 +70,12 @@ header {
 	margin-right: 1%;
 	border-radius: 3px;
 	padding-top: 20px;
-	border-bottom: 4px solid #0153b6;
+	border-bottom: 4px solid #0087bc;
 }
 .gallery .thumbnail h4 {
 	margin-top: 5px;
 	margin-bottom: 5px;
-	color: #0153b6;
+	color: #0087bc;
 	text-align: left;
 	padding-left: 20px;
 	padding-right: 20px;
@@ -98,11 +98,11 @@ header {
 	float: left;
 }
 .intro .column h3 {
-	color: #FFFFFF;
+	color: #5D5E5D;
 	text-align: center;
 }
 .intro .column p {
-	color: #FFFFFF;
+	color: #5D5E5D;
 }
 .cards {
 	width: 100%;
@@ -116,7 +116,6 @@ header {
 	padding-right: 30px;
 	text-align: justify;
 	line-height: 25px;
-	font-weight: lighter;
 	margin-left: 20px;
 	margin-right: 20px;
 	width: 80%;
@@ -165,7 +164,7 @@ footer {
 }
 .intro {
 	display: inline-block;
-	background-color: #0153b6;
+	background-color: #e1e1e1;
 }
 .profile {
 	width: 50%;
