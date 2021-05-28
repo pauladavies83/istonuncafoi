@@ -1,5 +1,5 @@
 let capture;
-let y = 0;
+let x = 0;
 let larg = 1;
 let fr = 60;
 let start = true;
@@ -19,16 +19,38 @@ function setup() {
 function draw() {
   frameRate(fr);
   clear();
-  vel = floor(map(frameRate(), 1, 60, 0, 100));
+  vel = floor(map(frameRate(), 1, 20, 0, 100));
   text("Velocidade (de 0 à 100%): " + vel + "%", 10, 760);
   text("Área de captura: " + larg + "px", 10, 790);
 
   if (start) {
-    canvas2.copy(capture, 0, y, capture.width, larg, 0, y, capture.width, larg);
-    y = y + larg;
+    canvas2.copy(
+      capture,
+      capture.width / 2,
+      0,
+      20 + larg,
+      capture.height,
+      x,
+      0,
+      20 + larg,
+      capture.height
+    );
+    canvas2.copy(
+      capture,
+      capture.width / 2,
+      0,
+      20 + larg,
+      capture.height,
+      capture.width - x,
+      0,
+      20 + larg,
+      capture.height
+    );
+    x = x + larg;
 
-    if (y > capture.height) {
-      y = 0;
+    if (x > width) {
+      // loop
+      x = 0;
     }
   }
   image(canvas2, 0, 0);
@@ -59,7 +81,7 @@ function keyTyped() {
     larg = 1;
     fr = 60;
   } else if (key === "s" || key === "S") {
-    saveCanvas("TimeWarp", "jpg");
+    saveCanvas("SlitScanSim", "jpg");
   } else if (key === "p" || key === "P") {
     start = !start;
     if (start == false) {

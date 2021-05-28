@@ -19,7 +19,7 @@ function setup() {
 function draw() {
   frameRate(fr);
   clear();
-  vel = floor(map(frameRate(), 1, 40, 0, 100));
+  vel = floor(map(frameRate(), 1, 60, 0, 100));
   text("Velocidade (de 0 à 100%): " + vel + "%", 10, 760);
   text("Área de captura: " + larg + "px", 10, 790);
 
@@ -35,29 +35,32 @@ function draw() {
 }
 
 
-function keyTyped(){
+function keyTyped() {
   if (key === "r" || key === "R") {
     fr += 5;
     if (fr > 40) {
       fr = 40;
     }
-  } else if (key === "d" || key === "D") {
+  } else if (key === "l" || key === "L") {
     fr -= 5;
     if (fr < 5) {
       fr = 5;
     }
-  } else if (key === "l" || key === "L") {
+  } else if (key === "a" || key === "A") {
     larg += 5;
-    if (larg > 720) {
-      larg = 720;
+    if (larg > 1280) {
+      larg = 1280;
     }
-  } else if (key === "e" || key === "E") {
+  } else if (key === "d" || key === "D") {
     larg -= 5;
     if (larg < 1) {
       larg = 1;
     }
+  } else if (key === "i" || key === "I") {
+    larg = 1;
+    fr = 60;
   } else if (key === "s" || key === "S") {
-    saveCanvas("TimeWarp", "jpg");
+    saveCanvas("SlitScan", "jpg");
   } else if (key === "p" || key === "P") {
     start = !start;
     if (start == false) {
@@ -67,4 +70,5 @@ function keyTyped(){
     }
   }
   print(frameRate());
+  print(larg);
 }
