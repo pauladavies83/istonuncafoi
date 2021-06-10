@@ -1,3 +1,5 @@
+//frame retirado em random e colocado no mesmo random
+
 import processing.video.*;
 Capture video;
 
@@ -18,8 +20,8 @@ void captureEvent(Capture video) {
 
 void draw() {
   frameRate(fr);
-  float r = random(0, height);
-  copy(video, 0, int(r), width, larg, 0, int(r), width, larg); 
+  int r = int(random(0, height));
+  copy(video, 0, r, width, larg, 0, r, width, larg); 
 
   y = y + larg;
 

@@ -1,14 +1,17 @@
 let capture;
-let x = 0;
+let y = 0;
 let larg = 1;
 let fr = 60;
 let start = true;
 let canvas2;
 let vel;
+let r;
+let caos = 0.01;
+let xoff = 0;
 
 function setup() {
-  createCanvas(1280, 820);
-  canvas2 = createGraphics(1280, 820);
+  createCanvas(1280, 850);
+  canvas2 = createGraphics(1280, 850);
   canvas2.clear();
   capture = createCapture(VIDEO);
   capture.size(1280, 720);
@@ -22,18 +25,23 @@ function draw() {
   vel = floor(map(frameRate(), 1, 60, 0, 100));
   text("Velocidade (de 0 à 100%): " + vel + "%", 10, 760);
   text("Área de captura: " + larg + "px", 10, 790);
+  text("Índice de caos (quanto maior o número, mais caótica a formação da imagem): " + round(caos, 10), 10, 820);
 
-  if (start){
-  canvas2.copy(capture, capture.width / 2, 0, 20 + larg, capture.height, x, 0, 20 + larg, capture.height);
-  x = x + larg;
+  if (start) {
+  r = int(noise(xoff)*height);
+  canvas2.copy(capture, 0, r, capture.width, larg, 0, y, capture.width, larg);
 
-  if (x > width) {
-    x = 0;
+  y = y + larg;
+  xoff += caos;
+
+  if (y > capture.height) {
+    y = 0;
   }
-}
+  }
   image(canvas2, 0, 0);
-}
 
+
+}
 
 function keyTyped() {
   if (key === "r" || key === "R") {
@@ -56,11 +64,22 @@ function keyTyped() {
     if (larg < 1) {
       larg = 1;
     }
+  } else if (key === "c" || key === "C") {
+    caos *= 10;
+    if (caos > 1000) {
+    caos = 1000;
+   }
+  } else if (key === "o" || key === "O") {
+    caos *= 0.1;
+    if (caos < 0.00001) {
+    caos = 0.00001;
+   }
   } else if (key === "i" || key === "I") {
     larg = 1;
     fr = 60;
+    caos = 0.01;
   } else if (key === "s" || key === "S") {
-    saveCanvas("SlitScan", "jpg");
+    saveCanvas("TimeWarpPerlinNoise", "jpg");
   } else if (key === "p" || key === "P") {
     start = !start;
     if (start == false) {
@@ -71,4 +90,5 @@ function keyTyped() {
   }
   print(frameRate());
   print(larg);
+  print(xoff);
 }

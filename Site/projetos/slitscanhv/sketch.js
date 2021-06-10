@@ -45,8 +45,8 @@ function draw() {
 function keyTyped() {
   if (key === "r" || key === "R") {
     fr += 5;
-    if (fr > 40) {
-      fr = 40;
+    if (fr > 20) {
+      fr = 20;
     }
   } else if (key === "l" || key === "L") {
     fr -= 5;

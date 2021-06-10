@@ -80,6 +80,11 @@ header {
 	padding-left: 20px;
 	padding-right: 20px;
 }
+
+.gallery .thumbnail a {
+  color: black;
+}
+
 .gallery .thumbnail p {
 	margin: 0;
 	color: #B3B3B3;

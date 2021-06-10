@@ -1,10 +1,11 @@
 let capture;
-let x = 0;
-let larg = 1;
+let y = 0;
+let larg = 10;
 let fr = 60;
 let start = true;
 let canvas2;
 let vel;
+let r;
 
 function setup() {
   createCanvas(1280, 820);
@@ -23,17 +24,20 @@ function draw() {
   text("Velocidade (de 0 à 100%): " + vel + "%", 10, 760);
   text("Área de captura: " + larg + "px", 10, 790);
 
-  if (start){
-  canvas2.copy(capture, capture.width / 2, 0, 20 + larg, capture.height, x, 0, 20 + larg, capture.height);
-  x = x + larg;
+  if (start) {
+  r = int(random(0, height));
+  canvas2.copy(capture, 0, r, capture.width, larg, 0, r, capture.width, larg);
 
-  if (x > width) {
-    x = 0;
+  y = y + larg;
+
+  if (y > height) {
+    y = 0;
   }
-}
+  }
   image(canvas2, 0, 0);
-}
 
+
+}
 
 function keyTyped() {
   if (key === "r" || key === "R") {
@@ -57,10 +61,10 @@ function keyTyped() {
       larg = 1;
     }
   } else if (key === "i" || key === "I") {
-    larg = 1;
+    larg = 10;
     fr = 60;
   } else if (key === "s" || key === "S") {
-    saveCanvas("SlitScan", "jpg");
+    saveCanvas("TimeWarpRandomico", "jpg");
   } else if (key === "p" || key === "P") {
     start = !start;
     if (start == false) {
