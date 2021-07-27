@@ -1,34 +1,29 @@
 let capture;
-let fundo;
-let transp;
 let tam = 10;
-let rap = 10;
+let rap = 5;
 let start = true;
 let canvas2;
-let x;
-let y;
 let ale = true;
 
 function setup() {
-  createCanvas(1280, 850);
-  canvas2 = createGraphics(1280, 850);
+  createCanvas(720, 610);
+  canvas2 = createGraphics(720, 480);
   canvas2.clear();
+  canvas2.background(255);
   capture = createCapture(VIDEO);
-  capture.size(1280, 720);
+  capture.size(720, 480);
   capture.hide();
   textFont("Helvetica", 20);
 }
 
 function draw() {
   clear();
-  // vel = floor(map(rap, 1, 50, 0, 100));
-  // text("Velocidade (de 0 à 100%): " + vel + "%", 10, 760);
   if(ale){
-  text("Modo de escolha do tamanho dos quadrados: manual", 10,760);
-} else {
-  text("Modo de escolha do tamanho dos quadrados: automático", 10,760);
+    text("Modo de escolha do tamanho do pincel: humano (manual)", 10,520);
+  } else {
+    text("Modo de escolha do tamanho do pincel: algoritmo (randômico)", 10,520);
 }
-  text("Tamanho do quadrado: " + tam + " px", 10,790);
+  text("Tamanho do pincel (modo manual): " + tam + " px", 10,550);
 
   if (start) {
     capture.loadPixels();
@@ -36,58 +31,41 @@ function draw() {
       let x = random(capture.width-tam);
       let y = random(capture.height-tam);
       c = capture.get(x, y);
-
       canvas2.fill(c);
       canvas2.noStroke();
       if (ale){
-      canvas2.square(x, y, tam);
+      canvas2.circle(x, y, tam);
       } else {
-      canvas2.square(x, y, int(random(tam)));
+      canvas2.circle(x, y, int(random(tam*3)));
       }
     }
     capture.updatePixels();
-    updatePixels();
-
+    print(frameRate());
   }
   image(canvas2, 0, 0);
 }
 
 function keyTyped() {
-  if (key === "r" || key === "R") {
-    rap += 5;
-    if (rap > 50) {
-      rap = 50;
-    }
-  } else if (key === "l" || key === "L") {
-    rap -= 5;
-    if (rap < 5) {
-      rap = 5;
-    }
-  } else if (key === "a" || key === "A") {
+  if (key === "a" || key === "A") {
     tam += 5;
     if (tam > 200) {
       tam = 200;
     }
   } else if (key === "d" || key === "D") {
     tam -= 5;
-    if (tam > 5) {
+    if (tam < 5) {
       tam = 5;
     }
 }  else if (key === "i" || key === "I") {
     tam = 10;
-    rap = 10;
+    ale = true;
   } else if (key === "t" || key === "T"){
     ale = !ale;
   } else if (key === "s" || key === "S") {
-    saveCanvas("PixelP", "jpg");
+    saveCanvas(canvas2, "PixelRandom", "jpg");
   } else if (key === "p" || key === "P") {
     start = !start;
-    if (start == false) {
-      rap = 0;
-    } else {
-      rap = 25;
+  } else if (key === "f" || key === "F") {
+      canvas2.background(255);
     }
-  }
-  print(rap);
-  print(tam);
 }

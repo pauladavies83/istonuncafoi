@@ -1,7 +1,7 @@
 let capture;
 let alt;
 let larg;
-let tam = 12;
+let tam = 14;
 let fr = 45;
 let start = true;
 let canvas2;
@@ -10,11 +10,12 @@ let r;
 let r2;
 
 function setup() {
-  createCanvas(1280, 850);
-  canvas2 = createGraphics(1280, 850);
+  createCanvas(720, 610);
+  canvas2 = createGraphics(720, 480);
   canvas2.clear();
+  canvas2.background(255);
   capture = createCapture(VIDEO);
-  capture.size(1280, 720);
+  capture.size(720, 480);
   capture.hide();
   textFont("Helvetica", 20);
 }
@@ -22,9 +23,9 @@ function setup() {
 function draw() {
   frameRate(fr);
   clear();
-  vel = floor(map(frameRate(), 1, 45, 0, 100));
-  text("Velocidade (de 0 à 100%): " + vel + "%", 10, 760);
-  text("Tamanho do retângulo: " + alt + " x " + larg + " px", 10, 790);
+  vel = floor(map(frameRate(), 1, 60, 0, 100));
+  text("Velocidade (de 0 à 100%): " + vel + "%", 10, 520);
+  text("Tamanho do retângulo: " + alt + " x " + larg + " px", 10, 550);
 
   if (start) {
     alt = floor(capture.height / tam);
@@ -39,8 +40,8 @@ function draw() {
 function keyTyped() {
   if (key === "r" || key === "R") {
     fr += 5;
-    if (fr > 45) {
-      fr = 45;
+    if (fr > 60) {
+      fr = 60;
     }
   } else if (key === "l" || key === "L") {
     fr -= 5;
@@ -61,7 +62,7 @@ function keyTyped() {
     tam = 12;
     fr = 45;
   } else if (key === "s" || key === "S") {
-    saveCanvas("RetRandom", "jpg");
+    saveCanvas(canvas2, "RetRandom", "jpg");
   } else if (key === "p" || key === "P") {
     start = !start;
     if (start == false) {
@@ -70,7 +71,4 @@ function keyTyped() {
       frameRate(fr);
     }
   }
-  print(frameRate());
-  print(alt, larg);
-  print(tam);
 }

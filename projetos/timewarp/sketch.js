@@ -7,11 +7,12 @@ let canvas2;
 let vel;
 
 function setup() {
-  createCanvas(1280, 820);
-  canvas2 = createGraphics(1280, 820);
+  createCanvas(720, 610);
+  canvas2 = createGraphics(720, 480);
   canvas2.clear();
+  canvas2.background(255);
   capture = createCapture(VIDEO);
-  capture.size(1280, 720);
+  capture.size(720, 480);
   capture.hide();
   textFont("Helvetica", 20);
 }
@@ -20,8 +21,8 @@ function draw() {
   frameRate(fr);
   clear();
   vel = floor(map(frameRate(), 1, 60, 0, 100));
-  text("Velocidade (de 0 à 100%): " + vel + "%", 10, 760);
-  text("Área de captura: " + larg + "px", 10, 790);
+  text("Velocidade (de 0 à 100%): " + vel + "%", 10, 520);
+  text("Área de captura: " + larg + "px", 10, 550);
 
   if (start) {
     canvas2.copy(capture, 0, y, capture.width, larg, 0, y, capture.width, larg);
@@ -47,8 +48,8 @@ function keyTyped() {
     }
   } else if (key === "a" || key === "A") {
     larg += 5;
-    if (larg > 1280) {
-      larg = 1280;
+    if (larg > capture.width) {
+      larg = capture.width;
     }
   } else if (key === "d" || key === "D") {
     larg -= 5;
@@ -59,7 +60,7 @@ function keyTyped() {
     larg = 1;
     fr = 60;
   } else if (key === "s" || key === "S") {
-    saveCanvas("TimeWarp", "jpg");
+    saveCanvas(canvas2, "TimeWarp", "jpg");
   } else if (key === "p" || key === "P") {
     start = !start;
     if (start == false) {
@@ -68,6 +69,4 @@ function keyTyped() {
       frameRate(fr);
     }
   }
-  print(frameRate());
-  print(larg);
 }

@@ -10,11 +10,12 @@ let caos = 0.01;
 let xoff = 0;
 
 function setup() {
-  createCanvas(1280, 850);
-  canvas2 = createGraphics(1280, 850);
+  createCanvas(720, 610);
+  canvas2 = createGraphics(720, 480);
   canvas2.clear();
+  canvas2.background(255);
   capture = createCapture(VIDEO);
-  capture.size(1280, 720);
+  capture.size(720, 480);
   capture.hide();
   textFont("Helvetica", 20);
 }
@@ -23,9 +24,9 @@ function draw() {
   frameRate(fr);
   clear();
   vel = floor(map(frameRate(), 1, 60, 0, 100));
-  text("Velocidade (de 0 à 100%): " + vel + "%", 10, 760);
-  text("Área de captura: " + larg + "px", 10, 790);
-  text("Índice de caos (quanto maior o número, mais caótica a formação da imagem): " + round(caos, 10), 10, 820);
+  text("Velocidade (de 0 à 100%): " + vel + "%", 10, 520);
+  text("Área de captura: " + larg + "px", 10, 550);
+  text("Caos (quanto maior o número, mais caótica a formação da imagem): " + round(caos, 10), 10, 580);
 
   if (start) {
   r = int(noise(xoff)*height);
@@ -39,8 +40,6 @@ function draw() {
   }
   }
   image(canvas2, 0, 0);
-
-
 }
 
 function keyTyped() {
@@ -56,8 +55,8 @@ function keyTyped() {
     }
   } else if (key === "a" || key === "A") {
     larg += 5;
-    if (larg > 1280) {
-      larg = 1280;
+    if (larg > capture.width) {
+      larg = capture.width;
     }
   } else if (key === "d" || key === "D") {
     larg -= 5;
@@ -79,7 +78,7 @@ function keyTyped() {
     fr = 60;
     caos = 0.01;
   } else if (key === "s" || key === "S") {
-    saveCanvas("TimeWarpPerlinNoise", "jpg");
+    saveCanvas(canvas2, "TimeWarpPerlinNoise", "jpg");
   } else if (key === "p" || key === "P") {
     start = !start;
     if (start == false) {
@@ -88,7 +87,4 @@ function keyTyped() {
       frameRate(fr);
     }
   }
-  print(frameRate());
-  print(larg);
-  print(xoff);
 }
