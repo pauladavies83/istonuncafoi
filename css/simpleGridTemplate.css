@@ -94,10 +94,10 @@ header {
 /* More info */
 .intro {
 	background-color: #FFFFFF;
-	padding-bottom: 35px;
+	padding-bottom: 3px;
 }
 .column {
-	width: 100%;
+	width: 50%;
 	text-align: center;
 	padding-top: 0px;
 	float: left;
