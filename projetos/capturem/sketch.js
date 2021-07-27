@@ -42,22 +42,28 @@ function draw() {
   image(canvas2, 0, 0);
 }
 
+function keyPressed() {
+    if (keyCode === RIGHT_ARROW) {
+      tam += 5;
+      if (tam > 200) {
+        tam = 200;
+      }
+    } else if (keyCode === LEFT_ARROW) {
+      tam -= 5;
+      if (tam < 5) {
+        tam = 5;
+      }
+    }
+  }
+
 function keyTyped() {
-  if (key === "a" || key === "A") {
-    tam += 5;
-    if (tam > 200) {
-      tam = 200;
-    }
-  } else if (key === "d" || key === "D") {
-    tam -= 5;
-    if (tam < 5) {
-      tam = 5;
-    }
-}  else if (key === "i" || key === "I") {
+  if (key === "i" || key === "I") {
     tam = 35;
   } else if (key === "s" || key === "S") {
     saveCanvas(canvas2, "PixelCapture", "jpg");
-  } else if (key === "f" || key === "F") {
+  } else if (key === "p" || key === "P") {
+    start = !start;
+  } else if (key === "x" || key === "X") {
         canvas2.background(255);
       }
 }

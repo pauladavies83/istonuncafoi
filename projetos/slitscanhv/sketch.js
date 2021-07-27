@@ -43,27 +43,7 @@ function draw() {
 }
 
 function keyTyped() {
-  if (key === "r" || key === "R") {
-    fr += 5;
-    if (fr > 60) {
-      fr = 60;
-    }
-  } else if (key === "l" || key === "L") {
-    fr -= 5;
-    if (fr < 5) {
-      fr = 5;
-    }
-  } else if (key === "a" || key === "A") {
-    larg += 5;
-    if (larg > capture.width) {
-      larg = capture.width;
-    }
-  } else if (key === "d" || key === "D") {
-    larg -= 5;
-    if (larg < 1) {
-      larg = 1;
-    }
-  } else if (key === "i" || key === "I") {
+  if (key === "i" || key === "I") {
     larg = 1;
     fr = 60;
   } else if (key === "s" || key === "S") {
@@ -74,6 +54,30 @@ function keyTyped() {
       frameRate(0);
     } else {
       frameRate(fr);
+    }
+  }
+}
+
+function keyPressed() {
+  if (keyCode === UP_ARROW) {
+    fr += 5;
+    if (fr > 60) {
+      fr = 60;
+    }
+  } else if (keyCode === DOWN_ARROW) {
+    fr -= 5;
+    if (fr < 5) {
+      fr = 5;
+    }
+  } else if (keyCode === RIGHT_ARROW) {
+    larg += 5;
+    if (larg > capture.width) {
+      larg = capture.width;
+    }
+  } else if (keyCode === LEFT_ARROW) {
+    larg -= 5;
+    if (larg < 1) {
+      larg = 1;
     }
   }
 }

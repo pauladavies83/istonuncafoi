@@ -3,17 +3,17 @@ let x = 0;
 let y = 0;
 let xoff = 100;
 let caos = 0.01;
-let tam = 12;
+let tam = 10;
 let alt;
 let larg;
-let fr = 60;
+let fr = 45;
 let start = true;
-let ale = true;
+let ale = false;
 let canvas2;
 let vel;
 
 function setup() {
-  createCanvas(720, 610);
+  createCanvas(720, 640);
   canvas2 = createGraphics(720, 480);
   canvas2.clear();
   canvas2.background(255);
@@ -29,7 +29,12 @@ function draw() {
   vel = floor(map(frameRate(), 1, 60, 0, 100));
   text("Velocidade (de 0 à 100%): " + vel + "%", 10, 520);
   text("Tamanho do retângulo: " + alt + " x " + larg + " px", 10, 550);
-  text("Caos (quanto maior o número, mais caótica a formação da imagem): " + round(caos, 10), 10, 580);
+  if(ale){
+  text("Tipo de aleatoriedade: perlin noise", 10,580);
+} else {
+  text("Tipo de aleatoriedade: randômica", 10,580);
+}
+  text("Caos (quanto maior o número, mais caótica a formação da imagem): " + round(caos, 10), 10, 610);
 
   if (start) {
     alt = floor(capture.height / tam);
@@ -65,43 +70,47 @@ function draw() {
   image(canvas2, 0, 0);
 }
 
+function keyPressed() {
+    if (keyCode === UP_ARROW) {
+      fr += 5;
+      if (fr > 60) {
+        fr = 60;
+      }
+    } else if (keyCode === DOWN_ARROW) {
+      fr -= 5;
+      if (fr < 5) {
+        fr = 5;
+      }
+    } else if (keyCode === RIGHT_ARROW) {
+      tam -= 1;
+      if (tam < 1) {
+        tam = 1;
+      }
+    } else if (keyCode === LEFT_ARROW) {
+      tam += 1;
+      if (tam > 50) {
+        tam = 50;
+      }
+    }
+  }
+
 function keyTyped() {
-  if (key === "r" || key === "R") {
-    fr += 5;
-    if (fr > 60) {
-      fr = 60;
-    }
-  } else if (key === "l" || key === "L") {
-    fr -= 5;
-    if (fr < 5) {
-      fr = 5;
-    }
-  } else if (key === "a" || key === "A") {
-    tam -= 1;
-    if (tam < 1) {
-      tam = 1;
-    }
-  } else if (key === "d" || key === "D") {
-    tam += 1;
-    if (tam > 50) {
-      tam = 50;
-    }
-} else if (key === "c" || key === "C") {
+  if (key === "q" || key === "Q") {
     caos *= 10;
-  if (caos > 1000) {
+    if (caos > 1000) {
     caos = 1000;
-    }
-  } else if (key === "o" || key === "O") {
+   }
+ } else if (key === "a" || key === "A") {
     caos *= 0.1;
     if (caos < 0.00001) {
     caos = 0.00001;
-    }
+   }
+ } else if (key === "z" || key === "Z"){
+    ale = !ale;
   } else if (key === "i" || key === "I") {
-    tam = 12;
+    tam = 10;
     fr = 45;
     caos = 0.01;
-  } else if (key === "t" || key === "T"){
-    ale = !ale;
   } else if (key === "s" || key === "S") {
     saveCanvas(canvas2, "RetRandomPerlinNoise", "jpg");
   } else if (key === "p" || key === "P") {
@@ -111,5 +120,7 @@ function keyTyped() {
     } else {
       frameRate(fr);
     }
-  }
+  } else if (key === "x" || key === "X") {
+        canvas2.background(255);
+      }
 }

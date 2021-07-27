@@ -19,11 +19,11 @@ function setup() {
 function draw() {
   clear();
   if(ale){
-    text("Modo de escolha do tamanho do pincel: humano (manual)", 10,520);
+    text("Escolha do tamanho do pincel: humano (manual)", 10,520);
   } else {
-    text("Modo de escolha do tamanho do pincel: algoritmo (randômico)", 10,520);
+    text("Escolha do tamanho do pincel: algoritmo (randômico)", 10,520);
 }
-  text("Tamanho do pincel (modo manual): " + tam + " px", 10,550);
+  text("Tamanho do pincel : " + tam + " px", 10,550);
 
   if (start) {
     capture.loadPixels();
@@ -45,27 +45,41 @@ function draw() {
   image(canvas2, 0, 0);
 }
 
+function keyPressed() {
+    if (keyCode === RIGHT_ARROW) {
+      tam += 5;
+      if (tam > 200) {
+        tam = 200;
+      }
+    } else if (keyCode === LEFT_ARROW) {
+      tam -= 5;
+      if (tam < 5) {
+        tam = 5;
+      }
+    }
+  }
+
 function keyTyped() {
-  if (key === "a" || key === "A") {
-    tam += 5;
-    if (tam > 200) {
-      tam = 200;
-    }
-  } else if (key === "d" || key === "D") {
-    tam -= 5;
-    if (tam < 5) {
-      tam = 5;
-    }
-}  else if (key === "i" || key === "I") {
+  if (key === "q" || key === "Q") {
+    caos *= 10;
+    if (caos > 1000) {
+    caos = 1000;
+   }
+ } else if (key === "a" || key === "A") {
+    caos *= 0.1;
+    if (caos < 0.00001) {
+    caos = 0.00001;
+   }
+ } else if (key === "z" || key === "Z"){
+    ale = !ale;
+  } else if (key === "i" || key === "I") {
     tam = 10;
     ale = true;
-  } else if (key === "t" || key === "T"){
-    ale = !ale;
   } else if (key === "s" || key === "S") {
     saveCanvas(canvas2, "PixelRandom", "jpg");
   } else if (key === "p" || key === "P") {
     start = !start;
-  } else if (key === "f" || key === "F") {
-      canvas2.background(255);
-    }
+  } else if (key === "x" || key === "X") {
+        canvas2.background(255);
+      }
 }
