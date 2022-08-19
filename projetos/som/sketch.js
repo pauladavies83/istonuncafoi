@@ -34,18 +34,52 @@ function setup() {
   cv = createCanvas((w = windowWidth), (h = windowHeight));
   let containerId = "canvascontainer";
   cv.parent(containerId);
+
+//   let target = document.getElementById(containerId);
+//   const gesture = new TinyGesture(target, options);
+//   let t = "";
+
+//   gesture.on((g5 = "longpress"), () => {
+//     logGesture(g5, null);
+//     saveImg();
+//   });
+
+//   gesture.on(("swiperight"), () => {
+//     logGesture("Aumentar");
+//     aumRet();
+//   });
+  
+//   gesture.on(("swipeleft"), () => {
+//     logGesture("Diminuir");
+//     dimRet();
+//   });
   
   capture = createCapture(VIDEO);
   // capture.size(w, h);
   capture.hide();
   
   mic = new p5.AudioIn();
-  // mic.start();
+  mic.start();
 
   fft = new p5.FFT(0, bands);
   fft.setInput(mic);
 
   background(100);
+
+//   dimBtn = createButton("Diminuir retângulo");
+//   dimBtn.class("btnControl");
+//   dimBtn.mousePressed(dimRet);
+//   dimBtn.parent("divControles");
+
+//   aumBtn = createButton("Aumentar retângulo");
+//   aumBtn.class("btnControl");
+//   aumBtn.mousePressed(aumRet);
+//   aumBtn.parent("divControles");
+  
+  micBtn = createButton("Começar!");
+  micBtn.class("btnControl");
+  micBtn.mousePressed(userStartAudio);
+  micBtn.parent("divControles");
 
   switchBtn = createButton("Mudar câmera");
   switchBtn.class("btnControl");
@@ -57,15 +91,11 @@ function setup() {
   saveBtn.mousePressed(saveImg);
   saveBtn.parent("divControles");
 
-  stopBtn = createButton("Parar / reiniciar");
-  stopBtn.class("btnControl");
-  stopBtn.mousePressed(stopCapt);
-  stopBtn.parent("divControles");
-  
-  micBtn = createButton("Mic");
-  micBtn.class("btnControl");
-  micBtn.mousePressed(startMic);
-  micBtn.parent("divControles");
+  // stopBtn = createButton("Parar / reiniciar");
+  // stopBtn.class("btnControl");
+  // stopBtn.mousePressed(stopCapt);
+  // stopBtn.parent("divControles");
+
 }
 
 function windowResized() {
@@ -112,6 +142,20 @@ function stopCapture() {
   //capture.elt.srcObject = null;
 }
 
+// function dimRet() {
+//   tam += 1;
+//   if (tam > 50) {
+//     tam = 50;
+//   }
+// }
+
+// function aumRet() {
+//   tam -= 1;
+//   if (tam < 1) {
+//     tam = 1;
+//   }
+// }
+
 function saveImg() {
 saveCanvas(canvas, "IstoNuncaFoi", "jpg");
 }
@@ -120,9 +164,9 @@ function stopCapt() {
 start = !start;
 }
 
-function startMic() {
-mic.start();
-}
+// function startMic() {
+// mic.start();
+// }
 
 function draw() {
   if (start) {
@@ -137,14 +181,14 @@ function draw() {
     // alt = floor(capture.height / tam);
     // larg = floor(capture.width / tam);
       
-    let tam = vol/5;
+    let tam = vol;
     // let larg = vol;
     
     let x = int(random(0, capture.height));
     let y = int(random(0, capture.width));
     
-    let newX = map(x, 0, capture.height, 0, cv.height+200);
-    let newY = map(y, 0, capture.width, 0, cv.width+200);    
+    let newX = map(x, 0, capture.height, 0, cv.height);
+    let newY = map(y, 0, capture.width, 0, cv.width);    
     
     copy(capture, y, x, tam, tam, newY, newX, tam, tam);
   }
