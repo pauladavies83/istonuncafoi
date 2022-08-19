@@ -40,7 +40,7 @@ function setup() {
   capture.hide();
   
   mic = new p5.AudioIn();
-  mic.start();
+  // mic.start();
 
   fft = new p5.FFT(0, bands);
   fft.setInput(mic);
@@ -62,10 +62,10 @@ function setup() {
   stopBtn.mousePressed(stopCapt);
   stopBtn.parent("divControles");
   
-  // micBtn = createButton("Mic");
-  // micBtn.class("btnControl");
-  // micBtn.mousePressed(startMic);
-  // micBtn.parent("divControles");
+  micBtn = createButton("Mic");
+  micBtn.class("btnControl");
+  micBtn.mousePressed(startMic);
+  micBtn.parent("divControles");
 }
 
 function windowResized() {
@@ -112,31 +112,17 @@ function stopCapture() {
   //capture.elt.srcObject = null;
 }
 
-// function dimRet() {
-//   tam += 1;
-//   if (tam > 50) {
-//     tam = 50;
-//   }
-// }
-
-// function aumRet() {
-//   tam -= 1;
-//   if (tam < 1) {
-//     tam = 1;
-//   }
-// }
-
 function saveImg() {
-saveCanvas(canvas, "RetRandom", "jpg");
+saveCanvas(canvas, "IstoNuncaFoi", "jpg");
 }
 
 function stopCapt() {
 start = !start;
 }
 
-// function startMic() {
-// mic.start();
-// }
+function startMic() {
+mic.start();
+}
 
 function draw() {
   if (start) {
