@@ -1,80 +1,96 @@
 let capture;
-let alt;
-let larg;
-let tam = 14;
-let fr = 45;
-let start = true;
-let canvas2;
-let vel;
+let switchFlag = false;
+let resizing = false;
+let switchBtn;
+let saveBtn;
+let cv;
+let x = 0;
+let y = 0;
 let r;
 let r2;
+let tam = 70;
+
+
+var options = {
+ video: {
+    facingMode: "user"
+  },
+};
 
 function setup() {
-  createCanvas(720, 610);
-  canvas2 = createGraphics(720, 480);
-  canvas2.clear();
-  canvas2.background(255);
+  cv = createCanvas((w = windowWidth), (h = windowHeight));
+  let containerId = "canvascontainer";
+  cv.parent(containerId);
+  
   capture = createCapture(VIDEO);
-  capture.size(720, 480);
+  // capture.size(w, h);
   capture.hide();
-  textFont("Helvetica", 20);
+
+  background(100);
+
+  switchBtn = createButton("Câmera frontal / traseira");
+  switchBtn.class("btnControl");
+  switchBtn.mousePressed(switchCamera);
+  switchBtn.parent("divControles");
+
+  saveBtn = createButton("Salvar imagem");
+  saveBtn.class("btnControl");
+  saveBtn.mousePressed(saveImg);
+  saveBtn.parent("divControles");
+
+}
+
+function windowResized() {
+  console.log("Window resized!");
+  clear();
+
+  resizing = true;
+  
+  stopCapture();
+  capture.remove();
+  capture = createCapture(options);
+  capture.size(windowWidth, windowHeight);
+  capture.hide();
+}
+
+function switchCamera() {
+
+  switchFlag = !switchFlag;
+
+  let facingModeOption = "environment";
+  if (switchFlag != true) facingModeOption = "user";
+
+  //stopCapture();
+  capture.remove();
+  options = {
+    video: {
+      facingMode: facingModeOption,
+    },
+  };
+  capture = createCapture(options);
+  capture.hide();
+}
+
+function stopCapture() {
+  let stream = capture.elt.srcObject;
+  if (!stream) return;
+  let tracks = stream.getTracks();
+
+  tracks.forEach(function (track) {
+    track.stop();
+  });
+}
+
+function saveImg() {
+saveCanvas(canvas, "IstoNuncaFoi", "jpg");
 }
 
 function draw() {
-  frameRate(fr);
-  clear();
-  vel = floor(map(frameRate(), 1, 60, 0, 100));
-  text("Velocidade (de 0 à 100%): " + vel + "%", 10, 520);
-  text("Tamanho do retângulo: " + alt + " x " + larg + " px", 10, 550);
-
-  if (start) {
-    alt = floor(capture.height / tam);
-    larg = floor(capture.width / tam);
-    r = int(random(0, capture.height));
-    r2 = int(random(0, capture.width));
-    canvas2.copy(capture, int(r2), int(r), larg, alt, int(r2), int(r), larg, alt);
-  }
-  image(canvas2, 0, 0);
-}
-
-function keyTyped() {
-  if (key === "i" || key === "I") {
-    tam = 12;
-    fr = 45;
-  } else if (key === "s" || key === "S") {
-    saveCanvas(canvas2, "RetRandom", "jpg");
-  } else if (key === "p" || key === "P") {
-    start = !start;
-    if (start == false) {
-      frameRate(0);
-    } else {
-      frameRate(fr);
-    }
-  } else if (key === "x" || key === "X") {
-        canvas2.background(255);
-      }
-}
-
-function keyPressed() {
-  if (keyCode === UP_ARROW) {
-    fr += 5;
-    if (fr > 60) {
-      fr = 60;
-    }
-  } else if (keyCode === DOWN_ARROW) {
-    fr -= 5;
-    if (fr < 5) {
-      fr = 5;
-    }
-  } else if (keyCode === RIGHT_ARROW) {
-    tam -= 1;
-    if (tam < 1) {
-      tam = 1;
-    }
-  } else if (keyCode === LEFT_ARROW) {
-    tam += 1;
-    if (tam > 50) {
-      tam = 50;
-    }
-  }
-}
+  
+    let x = int(random(0, capture.width));
+    let y = int(random(0, capture.height));
+    let newX = map(x, 0, capture.width, 0, cv.width+50);
+    let newY = map(y, 0, capture.height, 0, cv.height+50);
+    copy(capture, x, y, tam, tam, newX, newY, tam, tam);
+  
+}  
