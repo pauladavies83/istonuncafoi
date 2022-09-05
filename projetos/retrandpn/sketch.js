@@ -29,17 +29,17 @@ function setup() {
 
   background(100);
 
-  switchBtn = createButton("Clica em mim!");
+  switchBtn = createButton("Try me!");
   switchBtn.class("btnControl");
   switchBtn.mousePressed(troca);
   switchBtn.parent("divControles");
   
-  switchBtn = createButton("Câmera frontal / traseira");
+  switchBtn = createButton("Switch camera");
   switchBtn.class("btnControl");
   switchBtn.mousePressed(switchCamera);
   switchBtn.parent("divControles");
 
-  saveBtn = createButton("Salvar imagem");
+  saveBtn = createButton("Save image");
   saveBtn.class("btnControl");
   saveBtn.mousePressed(saveImg);
   saveBtn.parent("divControles");

@@ -27,22 +27,22 @@ function setup() {
 
   background(100);
   
-  aumBtn = createButton("Memória longa");
+  aumBtn = createButton("Long memory");
   aumBtn.class("btnControl");
   aumBtn.mousePressed(aumMem);
   aumBtn.parent("divControles");
 
-  dimBtn = createButton("Memória curta");
+  dimBtn = createButton("Short memory");
   dimBtn.class("btnControl");
   dimBtn.mousePressed(dimMem);
   dimBtn.parent("divControles");
   
-  switchBtn = createButton("Câmera frontal / traseira");
+  switchBtn = createButton("Switch camera");
   switchBtn.class("btnControl");
   switchBtn.mousePressed(switchCamera);
   switchBtn.parent("divControles");
   
-  saveBtn = createButton("Salvar imagem");
+  saveBtn = createButton("Save image");
   saveBtn.class("btnControl");
   saveBtn.mousePressed(saveImg);
   saveBtn.parent("divControles");
