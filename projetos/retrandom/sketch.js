@@ -8,7 +8,7 @@ let x = 0;
 let y = 0;
 let r;
 let r2;
-let tam = 40;
+let tam = 13;
 
 
 var options = {
@@ -87,10 +87,14 @@ saveCanvas(canvas, "IstoNuncaFoi", "jpg");
 
 function draw() {
   
+    alt = floor(capture.height/tam);
+    larg = floor(capture.width/tam);
+    newAlt = floor(cv.height/tam);
+    newLarg = floor(cv.width/tam);
     let x = int(random(0, capture.width));
     let y = int(random(0, capture.height));
     let newX = map(x, 0, capture.width, 0, cv.width+50);
     let newY = map(y, 0, capture.height, 0, cv.height+50);
-    copy(capture, x, y, tam, tam, newX, newY, tam, tam);
+    copy(capture, x, y, larg, alt, newX, newY, newLarg, newAlt);
   
 }  
