@@ -8,7 +8,7 @@ let x = 0;
 let y = 0;
 let r;
 let r2;
-let tam = 70;
+let tam = 40;
 
 
 var options = {
