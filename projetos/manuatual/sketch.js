@@ -72,7 +72,11 @@ saveCanvas(canvas, "IstoNuncaFoi", "jpg");
 function draw() {
 
    for (var i = 0; i < touches.length; i++) {
-copy(capture, touches[i].x, touches[i].y, 100, 100, touches[i].x, touches[i].y, 100, 100);
+
+    let newX = map(x, 0, capture.width, 0, cv.width);
+    let newY = map(y, 0, capture.height, 0, cv.height); 
+
+copy(capture, touches[i].x, touches[i].y, 50, 50, touches[i].newX, touches[i].newY, 50, 50);
   
 }  
 }
