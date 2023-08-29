@@ -1,4 +1,3 @@
-let capture;
 let tam = 10;
 let rap = 10;
 let pn = 0;
@@ -83,16 +82,20 @@ saveCanvas(canvas, "IstoNuncaFoi", "jpg");
 }
 
 function draw() {
+  
 
-    for (let i = 0; i < rap; i++) {
-      let x = map(noise(pn), 0, 1, 0, width-tam);
-      let y = map(noise(pn+10), 0, 1, 0, height-tam);
-      let c = capture.get(x, y);
+  for (let i = 0; i < rap; i++) {
+    let x = map(noise(pn), 0, 1, 0, capture.width);
+    let y = map(noise(pn+10), 0, 1, 0, capture.height);
+    let c = capture.get(x, y);
 
-      fill(c);
-      noStroke();
-      circle(x, y, tam); 
-      pn += caos;
-    }
+    let newX = map(x, 0, capture.width, 0, cv.width);
+    let newY = map(y, 0, capture.height, 0, cv.height); 
+
+    fill(c);
+    noStroke();
+    circle(newX, newY, tam); 
+    pn += caos;
+  }
     
 }  
