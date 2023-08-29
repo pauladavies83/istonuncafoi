@@ -10,16 +10,27 @@ var options = {
   },
 };
 
+
 function setup() {
   cv = createCanvas((w = windowWidth), (h = windowHeight));
   let containerId = "canvascontainer";
   cv.parent(containerId);
   
   capture = createCapture(VIDEO);
-  capture.size(w, h);
+  // capture.size(w, h);
   capture.hide();
 
   background(100);
+
+  switchBtn = createButton("Switch camera");
+  switchBtn.class("btnControl");
+  switchBtn.mousePressed(switchCamera);
+  switchBtn.parent("divControles");
+
+  saveBtn = createButton("Save image");
+  saveBtn.class("btnControl");
+  saveBtn.mousePressed(saveImg);
+  saveBtn.parent("divControles");
 
 }
 
@@ -73,10 +84,7 @@ function draw() {
 
    for (var i = 0; i < touches.length; i++) {
 
-    let newX = map(x, 0, capture.width, 0, cv.width);
-    let newY = map(y, 0, capture.height, 0, cv.height); 
-
-copy(capture, touches[i].x, touches[i].y, 50, 50, touches[i].newX, touches[i].newY, 50, 50);
+copy(capture, touches[i].x, touches[i].y, 50, 50, touches[i].x, touches[i].y, 50, 50);
   
 }  
 }
