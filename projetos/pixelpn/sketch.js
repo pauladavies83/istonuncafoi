@@ -1,7 +1,7 @@
-let tam = 7;
+let tam = 5;
 let rap = 10;
 let pn = 0;
-let caos = 0.02;
+let caos = 0.05;
 let start = true;
 let canvas2;
 let ale = true;
