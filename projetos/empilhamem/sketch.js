@@ -4,6 +4,8 @@ let resizing = false;
 let aumBtn;
 let dimBtn;
 let switchBtn;
+let saveBtn;
+let backBtn;
 let cv;
 let imgs = [];
 let prev;
@@ -47,10 +49,10 @@ function setup() {
   saveBtn.mousePressed(saveImg);
   saveBtn.parent("divControles");
 
-  saveBtn = createButton("Back");
-  saveBtn.class("btnControl");
-  saveBtn.mousePressed(back);
-  saveBtn.parent("divControles");
+  backBtn = createButton("Back");
+  backBtn.class("btnControl");
+  backBtn.mousePressed(back);
+  backBtn.parent("divControles");
 
 }
 

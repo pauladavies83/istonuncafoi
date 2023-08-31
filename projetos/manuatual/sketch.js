@@ -2,7 +2,9 @@ let capture;
 let switchFlag = false;
 let resizing = false;
 let cv;
-let canvas2;
+let switchBtn;
+let saveBtn;
+let backBtn;
 
 var options = {
  video: {
@@ -32,10 +34,10 @@ function setup() {
   saveBtn.mousePressed(saveImg);
   saveBtn.parent("divControles");
 
-  saveBtn = createButton("Back");
-  saveBtn.class("btnControl");
-  saveBtn.mousePressed(back);
-  saveBtn.parent("divControles");
+  backBtn = createButton("Back");
+  backBtn.class("btnControl");
+  backBtn.mousePressed(back);
+  backBtn.parent("divControles");
 
 }
 

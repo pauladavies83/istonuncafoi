@@ -4,6 +4,7 @@ let resizing = false;
 let startBtn;
 let switchBtn;
 let saveBtn;
+let backBtn;
 let cv;
 let fft;
 let mic;
@@ -11,18 +12,17 @@ let bands = 128;
 let vol;
 
 var options = {
- video: {
+  video: {
     facingMode: "user"
   },
 };
 
 function setup() {
-  cv = createCanvas((w = windowWidth), (h = windowHeight));
+  cv = createCanvas(displayWidth, displayHeight);
   let containerId = "canvascontainer";
   cv.parent(containerId);
   
-  capture = createCapture(VIDEO);
-  // capture.size(w, h);
+  capture = createCapture(options);
   capture.hide();
   
   mic = new p5.AudioIn();
@@ -35,47 +35,43 @@ function setup() {
   
   startBtn = createButton("Start!");
   startBtn.class("btnControl");
-  startBtn.mousePressed(userStartAudio);
+  startBtn.touchStarted(userStartAudio); // Use touchStarted for mobile touch interactions
   startBtn.parent("divControles");
 
   switchBtn = createButton("Switch camera");
   switchBtn.class("btnControl");
-  switchBtn.mousePressed(switchCamera);
+  switchBtn.touchStarted(switchCamera); // Use touchStarted for mobile touch interactions
   switchBtn.parent("divControles");
 
   saveBtn = createButton("Save image");
   saveBtn.class("btnControl");
-  saveBtn.mousePressed(saveImg);
+  saveBtn.touchStarted(saveImg); // Use touchStarted for mobile touch interactions
   saveBtn.parent("divControles");
 
-  saveBtn = createButton("Back");
-  saveBtn.class("btnControl");
-  saveBtn.mousePressed(back);
-  saveBtn.parent("divControles");
-
+  backBtn = createButton("Back");
+  backBtn.class("btnControl");
+  backBtn.touchStarted(back);
+  backBtn.parent("divControles");
 }
 
 function windowResized() {
   console.log("Window resized!");
   clear();
-
+  
   resizing = true;
   
   stopCapture();
   capture.remove();
   capture = createCapture(options);
-  capture.size(windowWidth, windowHeight);
+  capture.size(displayWidth, displayHeight);
   capture.hide();
 }
 
 function switchCamera() {
-
   switchFlag = !switchFlag;
 
-  let facingModeOption = "environment";
-  if (switchFlag != true) facingModeOption = "user";
+  let facingModeOption = switchFlag ? "environment" : "user";
 
-  //stopCapture();
   capture.remove();
   options = {
     video: {
@@ -97,32 +93,27 @@ function stopCapture() {
 }
 
 function saveImg() {
-  // save();
-saveCanvas(canvas, "IstoNuncaFoi", "jpg");
+  saveCanvas(cv, "IstoNuncaFoi", "jpg");
 }
 
 function back() {
-window.open("https://www.istonuncafoi.com", "_self");
+  window.open("https://www.istonuncafoi.com", "_self");
 }
 
 function draw() {
-    let spectrum = fft.analyze();
-    
-    for (var i = 0; i < bands; i++) {
+  let spectrum = fft.analyze();
+  
+  for (let i = 0; i < bands; i++) {
     let amp = spectrum[i];
-      
-    let vol = map(amp, 0, 255, 1, capture.width/1); 
+    
+    let vol = map(amp, 0, 255, 1, capture.width / 2); 
     
     let x = int(random(0, capture.width));
     let y = int(random(0, capture.height));
     
-    
-    let newX = map(x, 0, capture.width, 0, cv.width+50);
-    let newY = map(y, 0, capture.height, 0, cv.height+50); 
+    let newX = map(x, 0, capture.width, 0, cv.width + 50);
+    let newY = map(y, 0, capture.height, 0, cv.height + 50); 
     
     copy(capture, x, y, vol, vol, newX, newY, vol, vol);
-
   }
 }
-
-

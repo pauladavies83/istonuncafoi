@@ -5,6 +5,9 @@ let caos = 0.01;
 let start = true;
 let canvas2;
 let ale = true;
+let switchBtn;
+let saveBtn;
+let backBtn;
 
 
 var options = {
@@ -34,10 +37,10 @@ function setup() {
   saveBtn.mousePressed(saveImg);
   saveBtn.parent("divControles");
 
-  saveBtn = createButton("Back");
-  saveBtn.class("btnControl");
-  saveBtn.mousePressed(back);
-  saveBtn.parent("divControles");
+  backBtn = createButton("Back");
+  backBtn.class("btnControl");
+  backBtn.mousePressed(back);
+  backBtn.parent("divControles");
 
 }
 
