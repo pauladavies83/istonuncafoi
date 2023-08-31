@@ -111,7 +111,7 @@ function draw() {
     for (var i = 0; i < bands; i++) {
     let amp = spectrum[i];
       
-    let vol = map(amp, 0, 255, 1, capture.width/3); 
+    let vol = map(amp, 0, 255, 1, capture.width/1); 
     
     let x = int(random(0, capture.width));
     let y = int(random(0, capture.height));
