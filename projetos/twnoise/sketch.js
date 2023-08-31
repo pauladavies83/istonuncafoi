@@ -85,6 +85,10 @@ function saveImg() {
 saveCanvas(canvas, "IstoNuncaFoi", "jpg");
 }
 
+function back() {
+window.open("https://www.istonuncafoi.com", "_self");
+}
+
 function draw() {
   r = int(noise(xoff)*capture.height);
   copy(capture, 0, r, capture.width, larg, 0, y, cv.width, larg);

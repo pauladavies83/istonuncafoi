@@ -1,14 +1,11 @@
-let capture;
-let switchFlag = false;
-let resizing = false;
-let startBtn;
-let switchBtn;
-let saveBtn;
-let cv;
-let fft;
-let mic;
-let bands = 128;
-let vol;
+let tam = 10;
+let rap = 10;
+let pn = 0;
+let caos = 0.01;
+let start = true;
+let canvas2;
+let ale = true;
+
 
 var options = {
  video: {
@@ -24,19 +21,8 @@ function setup() {
   capture = createCapture(VIDEO);
   // capture.size(w, h);
   capture.hide();
-  
-  mic = new p5.AudioIn();
-  mic.start();
-
-  fft = new p5.FFT(0, bands);
-  fft.setInput(mic);
 
   background(100);
-  
-  startBtn = createButton("Start!");
-  startBtn.class("btnControl");
-  startBtn.mousePressed(userStartAudio);
-  startBtn.parent("divControles");
 
   switchBtn = createButton("Switch camera");
   switchBtn.class("btnControl");
@@ -97,7 +83,6 @@ function stopCapture() {
 }
 
 function saveImg() {
-  // save();
 saveCanvas(canvas, "IstoNuncaFoi", "jpg");
 }
 
@@ -106,23 +91,20 @@ window.open("https://www.istonuncafoi.com", "_self");
 }
 
 function draw() {
-    let spectrum = fft.analyze();
-    
-    for (var i = 0; i < bands; i++) {
-    let amp = spectrum[i];
-      
-    let vol = map(amp, 0, 255, 1, capture.width/3); 
-    
-    let x = int(random(0, capture.width));
-    let y = int(random(0, capture.height));
-    
-    
-    let newX = map(x, 0, capture.width, 0, cv.width+50);
-    let newY = map(y, 0, capture.height, 0, cv.height+50); 
-    
-    copy(capture, x, y, vol, vol, newX, newY, vol, vol);
+  
 
+  for (let i = 0; i < rap; i++) {
+    let x = map(noise(pn), 0, 1, 0, capture.width);
+    let y = map(noise(pn+10), 0, 1, 0, capture.height);
+    let c = capture.get(x, y);
+
+    let newX = map(x, 0, capture.width, 0, cv.width);
+    let newY = map(y, 0, capture.height, 0, cv.height); 
+
+    fill(c);
+    noStroke();
+    circle(newX, newY, tam); 
+    pn += caos;
   }
-}
-
-
+    
+}  

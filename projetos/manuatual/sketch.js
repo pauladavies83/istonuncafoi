@@ -10,16 +10,32 @@ var options = {
   },
 };
 
+
 function setup() {
   cv = createCanvas((w = windowWidth), (h = windowHeight));
   let containerId = "canvascontainer";
   cv.parent(containerId);
   
   capture = createCapture(VIDEO);
-  capture.size(w, h);
+  // capture.size(w, h);
   capture.hide();
 
   background(100);
+
+  switchBtn = createButton("Switch camera");
+  switchBtn.class("btnControl");
+  switchBtn.mousePressed(switchCamera);
+  switchBtn.parent("divControles");
+
+  saveBtn = createButton("Save image");
+  saveBtn.class("btnControl");
+  saveBtn.mousePressed(saveImg);
+  saveBtn.parent("divControles");
+
+  saveBtn = createButton("Back");
+  saveBtn.class("btnControl");
+  saveBtn.mousePressed(back);
+  saveBtn.parent("divControles");
 
 }
 
@@ -69,10 +85,15 @@ function saveImg() {
 saveCanvas(canvas, "IstoNuncaFoi", "jpg");
 }
 
+function back() {
+window.open("https://www.istonuncafoi.com", "_self");
+}
+
 function draw() {
 
    for (var i = 0; i < touches.length; i++) {
-copy(capture, touches[i].x, touches[i].y, 100, 100, touches[i].x, touches[i].y, 100, 100);
+
+copy(capture, touches[i].x, touches[i].y, 50, 50, touches[i].x, touches[i].y, 50, 50);
   
 }  
 }

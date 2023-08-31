@@ -44,6 +44,11 @@ function setup() {
   saveBtn.mousePressed(saveImg);
   saveBtn.parent("divControles");
 
+  saveBtn = createButton("Back");
+  saveBtn.class("btnControl");
+  saveBtn.mousePressed(back);
+  saveBtn.parent("divControles");
+
 }
 
 function windowResized() {
@@ -93,6 +98,10 @@ ale = !ale;
 
 function saveImg() {
 saveCanvas(canvas, "IstoNuncaFoi", "jpg");
+}
+
+function back() {
+window.open("https://www.istonuncafoi.com", "_self");
 }
 
 function draw() {
