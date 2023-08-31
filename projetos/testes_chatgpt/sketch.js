@@ -13,8 +13,7 @@ var options = {
 
 function setup() {
   cv = createCanvas(displayWidth, displayHeight);
-  let containerId = "canvascontainer";
-  cv.parent(containerId);
+  cv.parent("canvascontainer"); // Assuming your div is named "canvascontainer"
   
   capture = createCapture(options);
   capture.hide();
@@ -24,15 +23,10 @@ function setup() {
 
   fft = new p5.FFT(0, bands);
   fft.setInput(mic);
-
-  background(100);
-}
-
-function windowResized() {
-  resizeCanvas(displayWidth, displayHeight);
 }
 
 function draw() {
+
   let spectrum = fft.analyze();
   
   for (let i = 0; i < bands; i++) {
@@ -40,15 +34,44 @@ function draw() {
     
     let vol = map(amp, 0, 255, 1, capture.width / 2); 
     
-    let x = int(random(0, width));
-    let y = int(random(0, height));
+    let x = int(random(0, capture.width));
+    let y = int(random(0, capture.height));
     
-    let size = map(vol, 0, capture.width / 2, 10, 100);
+    let newX = map(x, 0, capture.width, 0, width + 50);
+    let newY = map(y, 0, capture.height, 0, height + 50); 
     
-    let newX = map(x, 0, capture.width, 0, cv.width + 50);
-    let newY = map(y, 0, capture.height, 0, cv.height + 50);
-    let newSize = map(size, 0, capture.height, 0, cv.height + 50);
-
-    copy(capture, x, y, size, size, newX, newY, newSize, newSize);
+    copy(capture, x, y, vol, vol, newX, newY, vol, vol);
   }
+}
+
+function touchStarted() {
+  userStartAudio();
+  return false; // Prevent default behavior
+}
+
+function touchEnded() {
+  return false; // Prevent default behavior
+}
+
+function switchCamera() {
+  switchFlag = !switchFlag;
+
+  let facingModeOption = switchFlag ? "environment" : "user";
+
+  capture.remove();
+  options = {
+    video: {
+      facingMode: facingModeOption,
+    },
+  };
+  capture = createCapture(options);
+  capture.hide();
+}
+
+function saveImg() {
+  saveCanvas(cv, "IstoNuncaFoi", "jpg");
+}
+
+function back() {
+  window.open("https://www.istonuncafoi.com", "_self");
 }
