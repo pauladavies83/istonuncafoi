@@ -33,38 +33,30 @@ function setup() {
 
   background(100);
   
-  startBtn = createButton("Start!");
+  startBtn = createButton("Iniciar!");
   startBtn.class("btnControl");
   startBtn.touchStarted(userStartAudio); // Use touchStarted for mobile touch interactions
   startBtn.parent("divControles");
 
-  switchBtn = createButton("Switch camera");
+  switchBtn = createButton("Mudar a câmera");
   switchBtn.class("btnControl");
   switchBtn.touchStarted(switchCamera); // Use touchStarted for mobile touch interactions
   switchBtn.parent("divControles");
 
-  saveBtn = createButton("Save image");
+  saveBtn = createButton("Salvar imagem");
   saveBtn.class("btnControl");
   saveBtn.touchStarted(saveImg); // Use touchStarted for mobile touch interactions
   saveBtn.parent("divControles");
 
-  backBtn = createButton("Back");
+  backBtn = createButton("Voltar");
   backBtn.class("btnControl");
   backBtn.touchStarted(back);
   backBtn.parent("divControles");
 }
 
 function windowResized() {
-  console.log("Window resized!");
-  clear();
-  
-  resizing = true;
-  
-  stopCapture();
-  capture.remove();
-  capture = createCapture(options);
-  capture.size(displayWidth, displayHeight);
-  capture.hide();
+  // Adjust canvas size when the window is resized
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function switchCamera() {

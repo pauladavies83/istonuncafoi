@@ -31,22 +31,22 @@ function setup() {
 
   background(100);
 
-  trocaBtn = createButton("Try me!");
+  trocaBtn = createButton("Variar!");
   trocaBtn.class("btnControl");
   trocaBtn.mousePressed(troca);
   trocaBtn.parent("divControles");
   
-  switchBtn = createButton("Switch camera");
+  switchBtn = createButton("Mudar a câmera");
   switchBtn.class("btnControl");
   switchBtn.mousePressed(switchCamera);
   switchBtn.parent("divControles");
 
-  saveBtn = createButton("Save image");
+  saveBtn = createButton("Salvar imagem");
   saveBtn.class("btnControl");
   saveBtn.mousePressed(saveImg);
   saveBtn.parent("divControles");
 
-  backBtn = createButton("Back");
+  backBtn = createButton("Voltar");
   backBtn.class("btnControl");
   backBtn.mousePressed(back);
   backBtn.parent("divControles");
@@ -54,16 +54,8 @@ function setup() {
 }
 
 function windowResized() {
-  console.log("Window resized!");
-  clear();
-
-  resizing = true;
-  
-  stopCapture();
-  capture.remove();
-  capture = createCapture(options);
-  capture.size(windowWidth, windowHeight);
-  capture.hide();
+  // Adjust canvas size when the window is resized
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function switchCamera() {
@@ -115,9 +107,9 @@ function draw() {
     let ny = int(noise(xoff)*capture.height);
     
  if (ale) {
-    copy(capture, nx, ry, tam, tam, x, y, tam, tam);
+    copy(capture, nx, ny, tam, tam, x, y, tam, tam);
   } else {
-    copy(capture, rx, ny, tam, tam, x, y, tam, tam);
+    copy(capture, rx, ry, tam, tam, x, y, tam, tam);
   }
 
   xoff += caos;

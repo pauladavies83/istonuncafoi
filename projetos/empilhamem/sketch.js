@@ -29,27 +29,27 @@ function setup() {
 
   background(100);
   
-  aumBtn = createButton("Long memory");
+  aumBtn = createButton("Memória longa");
   aumBtn.class("btnControl");
   aumBtn.mousePressed(aumMem);
   aumBtn.parent("divControles");
 
-  dimBtn = createButton("Short memory");
+  dimBtn = createButton("Memória curta");
   dimBtn.class("btnControl");
   dimBtn.mousePressed(dimMem);
   dimBtn.parent("divControles");
   
-  switchBtn = createButton("Switch camera");
+  switchBtn = createButton("Mudar a câmera");
   switchBtn.class("btnControl");
   switchBtn.mousePressed(switchCamera);
   switchBtn.parent("divControles");
   
-  saveBtn = createButton("Save image");
+  saveBtn = createButton("Salvar imagem");
   saveBtn.class("btnControl");
   saveBtn.mousePressed(saveImg);
   saveBtn.parent("divControles");
 
-  backBtn = createButton("Back");
+  backBtn = createButton("Voltar");
   backBtn.class("btnControl");
   backBtn.mousePressed(back);
   backBtn.parent("divControles");
@@ -57,16 +57,8 @@ function setup() {
 }
 
 function windowResized() {
-  console.log("Window resized!");
-  clear();
-
-  resizing = true;
-  
-  stopCapture();
-  capture.remove();
-  capture = createCapture(options);
-  capture.size(windowWidth, windowHeight);
-  capture.hide();
+  // Adjust canvas size when the window is resized
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function switchCamera() {

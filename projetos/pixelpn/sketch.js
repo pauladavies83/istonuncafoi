@@ -27,17 +27,17 @@ function setup() {
 
   background(100);
 
-  switchBtn = createButton("Switch camera");
+  switchBtn = createButton("Mudar a câmera");
   switchBtn.class("btnControl");
   switchBtn.mousePressed(switchCamera);
   switchBtn.parent("divControles");
 
-  saveBtn = createButton("Save image");
+  saveBtn = createButton("Salvar imagem");
   saveBtn.class("btnControl");
   saveBtn.mousePressed(saveImg);
   saveBtn.parent("divControles");
 
-  backBtn = createButton("Back");
+  backBtn = createButton("Voltar");
   backBtn.class("btnControl");
   backBtn.mousePressed(back);
   backBtn.parent("divControles");
