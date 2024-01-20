@@ -13,18 +13,18 @@ let caos = 0.01;
 let xoff = 0;
 
 var options = {
- video: {
-    facingMode: "user"
+  video: {
+    facingMode: "user",
   },
 };
 
 function setup() {
-  cv = createCanvas((w = windowWidth), (h = windowHeight));
+  cv = createCanvas(windowWidth, windowHeight);
   let containerId = "canvascontainer";
   cv.parent(containerId);
-  
-  capture = createCapture(VIDEO);
-  // capture.size(w, h);
+
+  capture = createCapture(options);
+  capture.size(windowWidth, windowHeight); // Set the size of the capture element
   capture.hide();
 
   background(100);
@@ -43,22 +43,20 @@ function setup() {
   backBtn.class("btnControl");
   backBtn.mousePressed(back);
   backBtn.parent("divControles");
-
 }
 
 function windowResized() {
   // Adjust canvas size when the window is resized
   resizeCanvas(windowWidth, windowHeight);
+  capture.size(windowWidth, windowHeight); // Update the size of the capture element
 }
 
 function switchCamera() {
-
   switchFlag = !switchFlag;
 
   let facingModeOption = "environment";
   if (switchFlag != true) facingModeOption = "user";
 
-  //stopCapture();
   capture.remove();
   options = {
     video: {
@@ -66,29 +64,20 @@ function switchCamera() {
     },
   };
   capture = createCapture(options);
+  capture.size(windowWidth, windowHeight); // Set the size of the capture element
   capture.hide();
 }
 
-function stopCapture() {
-  let stream = capture.elt.srcObject;
-  if (!stream) return;
-  let tracks = stream.getTracks();
-
-  tracks.forEach(function (track) {
-    track.stop();
-  });
-}
-
 function saveImg() {
-saveCanvas(canvas, "IstoNuncaFoi", "jpg");
+  saveCanvas(cv, "IstoNuncaFoi", "jpg");
 }
 
 function back() {
-window.open("https://www.istonuncafoi.com", "_self");
+  window.open("https://www.istonuncafoi.com", "_self");
 }
 
 function draw() {
-  r = int(noise(xoff)*capture.height);
+  r = int(noise(xoff) * capture.height);
   copy(capture, 0, r, capture.width, larg, 0, y, cv.width, larg);
 
   y = y + larg;
@@ -97,4 +86,4 @@ function draw() {
   if (y > cv.height) {
     y = 0;
   }
-}  
+}
