@@ -47,6 +47,7 @@ function setup() {
 function windowResized() {
   // Adjust canvas size when the window is resized
   resizeCanvas(windowWidth, windowHeight);
+  capture.size(windowWidth, windowHeight); // Update the size of the capture element
 }
 
 function switchCamera() {
@@ -82,7 +83,7 @@ saveCanvas(canvas, "IstoNuncaFoi", "jpg");
 }
 
 function back() {
-window.open("https://www.istonuncafoi.com", "_self");
+  window.location.href = "https://www.istonuncafoi.com";
 }
 
 function draw() {

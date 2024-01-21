@@ -73,7 +73,7 @@ function saveImg() {
 }
 
 function back() {
-  window.open("https://www.istonuncafoi.com", "_self");
+  window.location.href = "https://www.istonuncafoi.com";
 }
 
 function draw() {
