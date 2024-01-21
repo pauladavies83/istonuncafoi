@@ -48,21 +48,19 @@ function windowResized() {
 }
 
 function switchCamera() {
-
   switchFlag = !switchFlag;
+  let facingModeOption = switchFlag ? "environment" : "user";
 
-  let facingModeOption = "environment";
-  if (switchFlag != true) facingModeOption = "user";
-
-  //stopCapture();
   capture.remove();
-  options = {
-    video: {
-      facingMode: facingModeOption,
-    },
-  };
-  capture = createCapture(options);
-  capture.hide();
+  setTimeout(() => {
+    options = {
+      video: {
+        facingMode: facingModeOption,
+      },
+    };
+    capture = createCapture(options);
+    capture.hide();
+  }, 1000); // Add a delay of 1 second (adjust as needed)
 }
 
 function stopCapture() {
