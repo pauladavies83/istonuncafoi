@@ -67,7 +67,8 @@ function back() {
 function draw() {
   if (mouseIsPressed || touches.length > 0) {
     for (let i = 0; i < touches.length; i++) {
-      copy(capture, touches[i].x, touches[i].y, 50, 50, touches[i].x, touches[i].y, 50, 50);
+      let circleSize = 50; // Set the size of the circles
+      ellipse(touches[i].x, touches[i].y, circleSize, circleSize);
     }
   }
 }
